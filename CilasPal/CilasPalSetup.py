@@ -18,5 +18,6 @@ def build_env():
         
     else:
         raise Exception("Incorrect build. Ensure that pypdf version 4.3.1, openpyxl version 3.1.5, xlsxwriter version 3.2.0")
-    
-build_env()
+        
+if __name__ == "__main__":
+    build_env()
