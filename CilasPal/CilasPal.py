@@ -1,3 +1,5 @@
+import sys
+#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')   ## If script can't find PdfReaderObj map your directory here
 import PdfReaderObj as p
 import pypdf
 import xlsxwriter
@@ -36,27 +38,27 @@ else:
     print("Welcome, please paste the path to the data file (.pdf only!)")
     file = input("Full file path is: ")
 
-    pdf = p.PdfReaderObject(file)
+    pdf = p.PdfReaderObject(file)      ## PDF defined here based on PDF reader object (see PdfReaderObj.py)
 
     spreadsheet_path = pdf.init_excel()
     print(spreadsheet_path)
 
     row = 2
-    # Now parse info from pdf. I'll keep this as straight foreward as possible
+    # Now parse info from pdf. I'll keep this as straight forward as possible
     for i in range(0, pdf.num_pages, 2):
-        contents1 = pdf.read_content(i)
-        contents2 = pdf.read_content(i+1)
+        contents1 = pdf.read_content(i)   ## Contents of page 1 of sample i (user defined size classes)
+        contents2 = pdf.read_content(i+1) ## Contents of page 2 of sample i (all size classes)
         sample_name = contents1[contents1.index("Sample ref.") + 14:contents1.index("Sample Name")]
         median = contents1[contents1.index('Diameter at 50%') + 18:contents1.index('µmDiameter at 90%')-1]
         mean = contents1[contents1.index('Mean diameter') + 16:contents1.index('FraunhoferDensity')-4]
 
-        # Check index allignment on first sample
+        # Check index alignment on first sample
         if i == 0:
-            print(Fore.YELLOW + "...Testing Index Allignment on sample 1...\n" + Fore.WHITE)
+            print(Fore.YELLOW + "...Testing Index Alignment on sample 1...\n" + Fore.WHITE)
             print(f"name:{sample_name}mean: {mean}\nmedian: {median}")
 
             if " " in sample_name or " " in mean or " " in median: # If there are spaces before/after
-                raise Exception("Misallignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces. Or, if you're sure this error is a mistake, delete the conditional on line 45 in CilasPal.py")
+                raise Exception("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces. Or, if you're sure this error is a mistake, delete the conditional on line 45 in CilasPal.py")
             else:
                 print(Fore.GREEN + "Correct indexing size metrics ... checking size classes..." + Fore.WHITE)
 
@@ -65,33 +67,37 @@ else:
                 defined_class_distrib = []
                 for classs in defined_classes_headers:
                     s = contents1.index(classs)
+
                     try:
-                        val = float(contents1[s+6:s+11])     # Catches if output contains characters --> can not convert a misallignment to float
+                        val = float(contents1[s+6:s+11])     # Catches if output contains characters --> can not convert a misalignment to float
                         defined_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
-                        raise Exception("Misallignment in indexing size classes. Can not cast to float. see above")
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
+                        raise Exception("Misalignment in indexing size classes. Can not cast to float. see above")
                 print(Fore.GREEN + "Correct indexing for customer defined size classes ... checking standard classes..." + Fore.WHITE)
                 contents2 = contents2[620:]    
 
                 standard_class_distrib = []
+
                 for classs in standard_classes_headers:
                     s = contents2.index(classs)
+
                     try:
-                        val = float(contents2[s+6:s+11])
+                        #val = float(contents2[s+6:s+11])   ## cumulative value (Q3)
+                        val = float(contents2[s+14:s+18])   ## individual size class value (q3)
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float" + Fore.WHITE)
-                        raise Exception("Misallignment in indexing size classes. Can not cast to float, see above")
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float" + Fore.WHITE)
+                        raise Exception("Misalignment in indexing size classes. Can not cast to float, see above")
                 print(Fore.GREEN + "Correct indexing for standard size classes ... proceeding to parse full data..." + Fore.WHITE)
                 # print(standard_class_distrib)
 
 
-        # Same exact thing as above, still catches misallignment errors but has no verbose output
+        # Same exact thing as above, still catches misalignment errors but has no verbose output
         contents1 = pdf.read_content(i)
         contents2 = pdf.read_content(i+1)        
         if " " in sample_name or " " in mean or " " in median:
-            raise Exception("Misallignment in indexing size metrics. Check that pdf version ==  or that the sample name does not contain spaces. Or, if you're sure this error is a mistake, delete lines 77-79 in CilasPal.py")
+            raise Exception("Misalignment in indexing size metrics. Check that pdf version ==  or that the sample name does not contain spaces. Or, if you're sure this error is a mistake, delete lines 77-79 in CilasPal.py")
         else:
             contents1 = contents1[620:]    
             defined_class_distrib = []
@@ -101,15 +107,16 @@ else:
                     val = float(contents1[s+6:s+11])
                     defined_class_distrib.append(val)
                 except:
-                    print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
-                    raise Exception("Misallignment in indexing size classes. Can not cast to float. see above")
+                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
+                    raise Exception("Misalignment in indexing size classes. Can not cast to float. see above")
             contents2 = contents2[620:]    
 
             standard_class_distrib = []
             for classs in standard_classes_headers:
                 s = contents2.index(classs)
                 try:
-                    val = float(contents2[s+6:s+11])
+                    #val = float(contents2[s+6:s+11])
+                    val = float(contents2[s + 14:s + 18])
                     standard_class_distrib.append(val)
                 except:
                     print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float" + Fore.WHITE)
