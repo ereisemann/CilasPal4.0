@@ -115,7 +115,7 @@ else:
                     val = float(contents1[s+6:s+11])
                     defined_class_distrib.append(val)
                 except:
-                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
+                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+12:s+16]} to float" + Fore.WHITE)
                     raise Exception("Misalignment in indexing size classes. Can not cast to float. see above")
             contents2 = contents2[620:]    
 
@@ -127,8 +127,8 @@ else:
                     val = float(contents2[s+12:s+16])   ## See comment above about indexing
                     standard_class_distrib.append(val)
                 except:
-                    print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float" + Fore.WHITE)
-                    raise Exception("Misallignment in indexing size classes. Can not cast to float, see above")               
+                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+16]} to float" + Fore.WHITE)
+                    raise Exception("Misalignment in indexing size classes. Can not cast to float, see above")
 
                     
             workbook = openpyxl.load_workbook(spreadsheet_path)
