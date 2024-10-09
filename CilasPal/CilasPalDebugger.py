@@ -31,11 +31,11 @@ def debug(file, defined_classes_headers, standard_classes_headers):
         if i >= 1000:
             print(Fore.YELLOW + "Whoa thats a lot of samples! ...Quitting Debug Mode...")
         else:
-            print(Fore.YELLOW + f"...Testing Index Allignment on sample {i} with ID {sample_name}...\n")
+            print(Fore.YELLOW + f"...Testing Index Alignment on sample {i} with ID {sample_name}...\n")
             print(f"name:{sample_name}mean: {mean}\nmedian: {median}")
 
             if " " in sample_name or " " in mean or " " in median: # If there are spaces before/after
-                print(Fore.RED + "Misallignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces. ...Continuing with incorrect indexing to shwo error effects...")
+                print(Fore.RED + "Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces. ...Continuing with incorrect indexing to shwo error effects...")
             else:
                 print(Fore.GREEN + "Correct indexing size metrics ... checking size classes..." + Fore.WHITE)
 
@@ -49,7 +49,7 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                         val = float(contents1[s+6:s+11])     # Catches if output contains characters --> can not convert a misallignment to float
                         defined_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float ...continuing with bad solution...")
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float ...continuing with bad solution...")
                         defined_class_distrib.append(contents1[s+6:s+11])
                 print(Fore.YELLOW + f"Customer defined ouput: {defined_class_distrib}")
                 contents2 = contents2[620:]    
@@ -61,7 +61,7 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                         val = float(contents2[s+12:s+16])   ## ere
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents2[s+12:s+16]} to float ...continuing with bad solution...")
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+16]} to float ...continuing with bad solution...")
                         standard_class_distrib.append(contents2[s+6:s+11])
                 print(Fore.YELLOW + f"Standard defined ouput: {standard_class_distrib}")
 
