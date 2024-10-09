@@ -1,3 +1,5 @@
+import sys
+#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')
 import PdfReaderObj as p
 import CilasPalSetup as setup
 import CilasPalDebugger as debug
@@ -17,7 +19,7 @@ def debug(file, defined_classes_headers, standard_classes_headers):
     print(Fore.YELLOW + f"Size classes are hard coded as follows: Standard classes = {standard_classes_headers}, Customer defined classes = {defined_classes_headers}")
 
     row = 2
-    # Now parse info from pdf. I'll keep this as straight foreward as possible
+    # Now parse info from pdf. I'll keep this as straight forward as possible
     for i in range(0, pdf.num_pages, 2):
         contents1 = pdf.read_content(i)
         contents2 = pdf.read_content(i+1)
@@ -56,10 +58,10 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                 for classs in standard_classes_headers:
                     s = contents2.index(classs)
                     try:
-                        val = float(contents2[s+6:s+11])
+                        val = float(contents2[s+12:s+16])   ## ere
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float ...continuing with bad solution...")
+                        print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents2[s+12:s+16]} to float ...continuing with bad solution...")
                         standard_class_distrib.append(contents2[s+6:s+11])
                 print(Fore.YELLOW + f"Standard defined ouput: {standard_class_distrib}")
 
