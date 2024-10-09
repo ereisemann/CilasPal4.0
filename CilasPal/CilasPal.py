@@ -74,28 +74,25 @@ else:
                         print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
                         raise Exception("Misalignment in indexing size classes. Can not cast to float. see above")
                 print(Fore.GREEN + "Correct indexing for customer defined size classes ... checking standard classes..." + Fore.WHITE)
-                contents2 = contents2[620:]    
+
+                #contents2 = contents2[620:]
+                contents2 = contents2[674:]   ### Trimming a bit more extraneous text off ~ere
+                contents2 = contents2.replace('\n', '')  ### stripping newline characters ~ere
+                contents2 = contents2.replace('xQ3q3', ' ')  ### stripping row names ~ere
+                contents2 = contents2.strip()  ### removes leading/trailing spaces ~ere
 
                 standard_class_distrib = []
 
                 for classs in standard_classes_headers:
                     s = contents2.index(classs)
 
-                    ## TESTING \/\/\/
-                    #print(str(s) + ' = index of class heading')
-                    #print(classs + ' = class heading')
-                    #val = float(contents2[s + 12:s + 16])  ## individual size class value (q3)
-                    #print(str(val) + ' = val')
-                    #print(str(contents2[s+12:s+16]) + ' = val')
-                    ## TESTING /\/\/\
-
                     try:
                         #val = float(contents2[s+6:s+11])   ## cumulative value (Q3)
-                        val = float(contents2[s+12:s+16])   ## individual size class value (q3)
+                        val = float(contents2[s+12:s+17])   ## individual size class value (q3) ~ere
                         print(val)
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float" + Fore.WHITE)
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+17]} to float" + Fore.WHITE)  ### ~ere
                         raise Exception("Misalignment in indexing size classes. Can not cast to float, see above")
                 print(Fore.GREEN + "Correct indexing for standard size classes ... proceeding to parse full data..." + Fore.WHITE)
                 # print(standard_class_distrib)
@@ -117,17 +114,22 @@ else:
                 except:
                     print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
                     raise Exception("Misalignment in indexing size classes. Can not cast to float. see above")
-            contents2 = contents2[620:]    
+
+            #contents2 = contents2[620:]
+            contents2 = contents2[674:]   ### Trimming a bit more extraneous text off ~ere
+            contents2 = contents2.replace('\n', '')  ### stripping newline characters ~ere
+            contents2 = contents2.replace('xQ3q3', ' ')  ### stripping row names ~ere
+            contents2 = contents2.strip()  ### removes leading/trailing spaces ~ere
 
             standard_class_distrib = []
             for classs in standard_classes_headers:
                 s = contents2.index(classs)
                 try:
                     #val = float(contents2[s+6:s+11])
-                    val = float(contents2[s+12:s+16])   ## See comment above about indexing
+                    val = float(contents2[s+12:s+17])   ## See comment above about indexing ~ere
                     standard_class_distrib.append(val)
                 except:
-                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+16]} to float" + Fore.WHITE)
+                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+17]} to float" + Fore.WHITE)  ### ~ere
                     raise Exception("Misalignment in indexing size classes. Can not cast to float, see above")
 
                     
