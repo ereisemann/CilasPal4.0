@@ -1,5 +1,5 @@
 import sys
-#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')   ## If script can't find PdfReaderObj map your directory here
+sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')   ## If script can't find PdfReaderObj map your directory here
 import PdfReaderObj as p
 import pypdf
 import xlsxwriter
@@ -67,7 +67,6 @@ else:
                 defined_class_distrib = []
                 for classs in defined_classes_headers:
                     s = contents1.index(classs)
-
                     try:
                         val = float(contents1[s+6:s+11])     # Catches if output contains characters --> can not convert a misalignment to float
                         defined_class_distrib.append(val)
@@ -82,9 +81,18 @@ else:
                 for classs in standard_classes_headers:
                     s = contents2.index(classs)
 
+                    ## TESTING \/\/\/
+                    print(str(s) + ' = index of class heading')
+                    print(classs + ' = class heading')
+                    val = float(contents2[s + 12:s + 16])  ## individual size class value (q3)
+                    print(str(val) + ' = val')
+                    #print(str(contents2[s+12:s+16]) + ' = val')
+                    ## TESTING /\/\/\
+
                     try:
                         #val = float(contents2[s+6:s+11])   ## cumulative value (Q3)
-                        val = float(contents2[s+14:s+18])   ## individual size class value (q3)
+                        val = float(contents2[s+12:s+16])   ## individual size class value (q3)
+                        print(val)
                         standard_class_distrib.append(val)
                     except:
                         print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float" + Fore.WHITE)
@@ -116,7 +124,7 @@ else:
                 s = contents2.index(classs)
                 try:
                     #val = float(contents2[s+6:s+11])
-                    val = float(contents2[s + 14:s + 18])
+                    val = float(contents2[s+12:s+16])   ## See comment above about indexing
                     standard_class_distrib.append(val)
                 except:
                     print(Fore.RED + f"Misallignment in indexing size classes. Can not cast {contents2[s+6:s+11]} to float" + Fore.WHITE)
