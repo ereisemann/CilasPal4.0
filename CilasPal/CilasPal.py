@@ -1,5 +1,5 @@
-import sys
-sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')   ## If script can't find PdfReaderObj map your directory here
+#import sys
+#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')   ## If script can't find PdfReaderObj map your directory here
 import PdfReaderObj as p
 import pypdf
 import xlsxwriter
@@ -82,10 +82,10 @@ else:
                     s = contents2.index(classs)
 
                     ## TESTING \/\/\/
-                    print(str(s) + ' = index of class heading')
-                    print(classs + ' = class heading')
-                    val = float(contents2[s + 12:s + 16])  ## individual size class value (q3)
-                    print(str(val) + ' = val')
+                    #print(str(s) + ' = index of class heading')
+                    #print(classs + ' = class heading')
+                    #val = float(contents2[s + 12:s + 16])  ## individual size class value (q3)
+                    #print(str(val) + ' = val')
                     #print(str(contents2[s+12:s+16]) + ' = val')
                     ## TESTING /\/\/\
 
