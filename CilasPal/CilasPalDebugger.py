@@ -52,28 +52,33 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                         print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float ...continuing with bad solution...")
                         defined_class_distrib.append(contents1[s+6:s+11])
                 print(Fore.YELLOW + f"Customer defined ouput: {defined_class_distrib}")
-                contents2 = contents2[620:]    
+                #contents2 = contents2[620:]
+                contents2 = contents2[674:]   ### Trimming a bit more extraneous text off
+                contents2 = contents2.replace('\n', '')  ### stripping newline characters
+                contents2 = contents2.replace('xQ3q3', ' ')  ### stripping row names
+                contents2 = contents2.strip()  ### removes leading/trailing spaces
 
                 standard_class_distrib = []
                 for classs in standard_classes_headers:
                     s = contents2.index(classs)
+                    #s = my_string.index(classs)
 
                     ## TESTING \/\/\/
-                    print(str(s) + ' = index of class heading')
-                    print(classs + ' = class heading')
-                    #val = float(contents2[s + 12:s + 16])  ## individual size class value (q3)
-                    #print(str(val) + ' = val')
-                    print(str(contents2[s+12:s+16]) + ' = val')
+                    #print(str(s) + ' = index of class heading')
+                    #print(classs + ' = class heading')
+                    # val = float(contents2[s + 12:s + 16])  ## individual size class value (q3)
+                    # print(str(val) + ' = val')
+                    #print(str(contents2[s+12:s+17]) + ' = val')
                     ## TESTING /\/\/\
 
 
                     try:
-                        val = float(contents2[s+12:s+16])   ## ere
+                        val = float(contents2[s+12:s+17])   ## ere
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+16]} to float ...continuing with bad solution...")
-                        standard_class_distrib.append(contents2[s+6:s+11])
-                print(Fore.YELLOW + f"Standard defined ouput: {standard_class_distrib}")
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+17]} to float ...continuing with bad solution...")
+                        standard_class_distrib.append(contents2[s+12:s+17])
+                print(Fore.YELLOW + f"Standard defined output: {standard_class_distrib}")
 
                 workbook = openpyxl.load_workbook(spreadsheet_path)
                 defined_class_distrib_sheet = workbook[workbook.sheetnames[1]]
