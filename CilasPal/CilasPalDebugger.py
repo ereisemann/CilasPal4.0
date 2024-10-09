@@ -1,5 +1,5 @@
 import sys
-#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')
+sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')
 import PdfReaderObj as p
 import CilasPalSetup as setup
 import CilasPalDebugger as debug
@@ -27,7 +27,7 @@ def debug(file, defined_classes_headers, standard_classes_headers):
         median = contents1[contents1.index('Diameter at 50%') + 18:contents1.index('µmDiameter at 90%')-1]
         mean = contents1[contents1.index('Mean diameter') + 16:contents1.index('FraunhoferDensity')-4]
 
-        # Check index allignment on first sample
+        # Check index alignment on first sample
         if i >= 1000:
             print(Fore.YELLOW + "Whoa thats a lot of samples! ...Quitting Debug Mode...")
         else:
@@ -57,6 +57,16 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                 standard_class_distrib = []
                 for classs in standard_classes_headers:
                     s = contents2.index(classs)
+
+                    ## TESTING \/\/\/
+                    print(str(s) + ' = index of class heading')
+                    print(classs + ' = class heading')
+                    #val = float(contents2[s + 12:s + 16])  ## individual size class value (q3)
+                    #print(str(val) + ' = val')
+                    print(str(contents2[s+12:s+16]) + ' = val')
+                    ## TESTING /\/\/\
+
+
                     try:
                         val = float(contents2[s+12:s+16])   ## ere
                         standard_class_distrib.append(val)
