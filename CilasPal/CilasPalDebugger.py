@@ -108,12 +108,13 @@ def debug(file, defined_classes_headers, standard_classes_headers):
 
                     try:
                         #val = float(contents2[s+12:s+17])   ### ~ere
-                        val = float(split_text[s+2])  ### from cleaned up list of strings
+                        #val = float(split_text[s+2])  ### from cleaned up list of strings
+                        val = float(split_text[j*3-1])
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {split_text[s+2]} to float ...continuing with bad solution...")  ### ~ere
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {split_text[j*3-1]} to float ...continuing with bad solution...")  ### ~ere
                         #standard_class_distrib.append(contents2[s+12:s+17]) ### ~ere
-                        standard_class_distrib.append(split_text[s+2])  ### ~ere
+                        standard_class_distrib.append(split_text[j*3-1])  ### ~ere
                 print(Fore.YELLOW + f"Standard defined output: {standard_class_distrib}")
 
                 workbook = openpyxl.load_workbook(spreadsheet_path)
