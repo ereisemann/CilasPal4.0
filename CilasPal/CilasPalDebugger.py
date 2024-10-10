@@ -99,7 +99,7 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                     #classs = standard_classes_headers[j-1]   ### unsure if this is needed
                     #s = contents2.index(classs)
                     #s = split_text.index(classs) ### indexing from the string list instead, now s, s+1, s+2 are the three vals.
-                    s = split_text[j*3-3]   ### Size Class Header
+                    #s = split_text[j*3-3]   ### Size Class Header
 
                     #print(str(classs) + " = SIZE CLASS " + str(s) + " = STR INDEX")   ###
                     #print(split_text[s:s+3])
