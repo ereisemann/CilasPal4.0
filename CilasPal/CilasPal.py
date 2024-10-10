@@ -62,6 +62,8 @@ else:
         median = contents1[contents1.index('Diameter at 50%') + 18:contents1.index('µmDiameter at 90%')-1]
         mean = contents1[contents1.index('Mean diameter') + 16:contents1.index('FraunhoferDensity')-4]
 
+        print(sample_name)  ## keep in some verbose for regular script
+
         # Check index alignment on first sample
         if i == 0:
             print(Fore.YELLOW + "...Testing Index Alignment on sample 1...\n" + Fore.WHITE)
@@ -122,7 +124,7 @@ else:
 ### major update above ~ere
 
                 standard_class_distrib = []
-                print(sample_name) ## keep in some verbose for regular script
+                #print(sample_name) ## keep in some verbose for regular script
                 #for classs in standard_classes_headers:
                 for j in range(1, len(standard_classes_headers)):  ### sometimes class header shows up in the data before appropriate location, causing problems with this indexing method
                     #s = contents2.index(classs)
