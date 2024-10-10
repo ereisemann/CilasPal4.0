@@ -1,5 +1,5 @@
-import sys
-sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')
+#import sys
+#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')
 import PdfReaderObj as p
 import CilasPalSetup as setup
 import CilasPalDebugger as debug
@@ -61,8 +61,7 @@ def debug(file, defined_classes_headers, standard_classes_headers):
 
                     start_index = contents2.index(search_pattern_1) ### first occurrence pattern 1
                     end_index = contents2.rfind(search_pattern_2) ### last occurrence of pattern 2
-
-                    trimmed_txt = updated_text[start_index:end_index] ### Trim everything outside those
+                    trimmed_txt = contents2[start_index:end_index] ### Trim everything outside those
                     trimmed_text = trimmed_txt.replace('Q3', ' ').replace('q3', ' ')
                 else:
                     trimmed_text = contents2   ### Result if no patterns found, probably unnecessary
