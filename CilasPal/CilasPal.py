@@ -123,17 +123,20 @@ else:
 
                 standard_class_distrib = []
                 print(sample_name) ## keep in some verbose for regular script
-                for classs in standard_classes_headers:
+                #for classs in standard_classes_headers:
+                for j in range(1, len(standard_classes_headers)):  ### sometimes class header shows up in the data before appropriate location, causing problems with this indexing method
                     #s = contents2.index(classs)
-                    s = split_text.index(classs)   ### indexing from the string list instead, now s, s+1, s+2 are the three vals.  ~ere
+                    #s = split_text.index(classs)   ### indexing from the string list instead, now s, s+1, s+2 are the three vals.  ~ere
+                    #s = split_text[j * 3 - 3]  ### Size Class Header
                     try:
                         #val = float(contents2[s+6:s+11])   ## cumulative value (Q3)
                         #val = float(contents2[s+12:s+16])   ## individual size class value (q3) ~ere
-                        val = float(split_text[s+2])  ### from cleaned up list of strings
+                        #val = float(split_text[s+2])  ### from cleaned up list of strings
+                        val = float(split_text[j * 3 - 1])
                         #print(val)
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {split_text[s+2]} to float" + Fore.WHITE)  ### ~ere
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {split_text[j * 3 - 1]} to float" + Fore.WHITE)  ### ~ere
                         raise Exception("Misalignment in indexing size classes. Can not cast to float, see above")
                 print(Fore.GREEN + "Correct indexing for standard size classes ... proceeding to parse full data..." + Fore.WHITE)
                 # print(standard_class_distrib)
@@ -195,20 +198,21 @@ else:
                 return [s for s in result if s.strip()]
 
             split_text = split_long_strings(cleaned_text)  ### reassign contents2 to the final version of the list of strings
-
  ### major update above ~ere
 
             standard_class_distrib = []
-            for classs in standard_classes_headers:
-                s = contents2.index(classs)
-                s = split_text.index(classs)  ### indexing from the string list instead
+            #for classs in standard_classes_headers:
+            for j in range(1,len(standard_classes_headers)):
+                #s = contents2.index(classs)
+                #s = split_text.index(classs)  ### indexing from the string list instead
                 try:
                     #val = float(contents2[s+6:s+11])
                     #val = float(contents2[s+12:s+17])   ## See comment above about indexing ~ere
-                    val = float(split_text[s + 2])  ### from cleaned up list of strings
+                    #val = float(split_text[s + 2])  ### from cleaned up list of strings
+                    val = float(split_text[j * 3 - 1])
                     standard_class_distrib.append(val)
                 except:
-                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {split_text[s+2]} to float" + Fore.WHITE)  ### ~ere
+                    print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {split_text[j * 3 - 1]} to float" + Fore.WHITE)  ### ~ere
                     raise Exception("Misalignment in indexing size classes. Can not cast to float, see above")
 
                     
