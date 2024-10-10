@@ -73,7 +73,7 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                     result = []
                     for item in data:
                         ### If the string is longer than 5 characters, split
-                        if len(item) > 5 and item != '100.00':  ### where item length exceeds 5 and are not 100.00
+                        if len(item) > 6 and item != '100.00':  ### where item length exceeds 6 and are not 100.00
                             ### Check if the string contains a decimal after the first character
                             if item[1] == '.':
                                 split_point = 4
