@@ -61,9 +61,11 @@ def debug(file, defined_classes_headers, standard_classes_headers):
 
                     start_index = contents2.index(search_pattern_1) ### first occurrence pattern 1
                     end_index = contents2.rfind(search_pattern_2) ### last occurrence of pattern 2
-                    trimmed_text = contents2[start_index:end_index] ### Trim everything outside those
+
+                    trimmed_txt = updated_text[start_index:end_index] ### Trim everything outside those
+                    trimmed_text = trimmed_txt.replace('Q3', ' ').replace('q3', ' ')
                 else:
-                    trimmed_text = text   ### Result if no patterns found, probably unnecessary
+                    trimmed_text = contents2   ### Result if no patterns found, probably unnecessary
 
                 cleaned_text = re.findall(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', trimmed_text)  ### isolating numbers, decimals, spaces
                 #cleaned_string = ' '.join(cleaned_text)   ### reassembling ### REMOVE
@@ -99,16 +101,17 @@ def debug(file, defined_classes_headers, standard_classes_headers):
                     ###
                     #print(str(classs) + " = SIZE CLASS " + str(s) + " = STR INDEX")   ###
                     #print(split_text[s:s+3])
-                    print(split_text[s] + ' = CLASS ' + split_text[s+1] + " = CUMULATIVE " + split_text[s+3] + " = NONCUMULATIVE ")
+                    print(split_text[s] + ' = CLASS ' + split_text[s+1] + " = CUMULATIVE " + split_text[s+2] + " = NONCUMULATIVE ")
                     ###
 
                     try:
                         #val = float(contents2[s+12:s+17])   ### ~ere
-                        val = float(split_text[s+3])  ### from cleaned up list of strings
+                        val = float(split_text[s+2])  ### from cleaned up list of strings
                         standard_class_distrib.append(val)
                     except:
                         print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+17]} to float ...continuing with bad solution...")  ### ~ere
-                        standard_class_distrib.append(contents2[s+12:s+17]) ### ~ere
+                        #standard_class_distrib.append(contents2[s+12:s+17]) ### ~ere
+                        standard_class_distrib.append(split_text[s+2])  ### ~ere
                 print(Fore.YELLOW + f"Standard defined output: {standard_class_distrib}")
 
                 workbook = openpyxl.load_workbook(spreadsheet_path)
