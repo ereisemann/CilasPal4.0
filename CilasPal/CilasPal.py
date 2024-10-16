@@ -71,11 +71,11 @@ else:
             print(f"name:{sample_name}mean: {mean}\nmedian: {median}")
 
             if " " in sample_name or " " in mean or " " in median: # If there are spaces before/after
-                raise Exception("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces. Or, if you're sure this error is a mistake, delete the conditional on line 45 in CilasPal.py")
+                raise Exception("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces.")   ### Now that indexing is based on a cleaned version of all the values, not sure spaces in sample names are a problem
             else:
                 print(Fore.GREEN + "Correct indexing size metrics ... checking size classes..." + Fore.WHITE)
 
-                contents1 = contents1[620:]    
+                contents1 = contents1[620:]
 
                 defined_class_distrib = []
                 for classs in defined_classes_headers:
@@ -88,7 +88,7 @@ else:
                         raise Exception("Misalignment in indexing size classes. Can not cast to float. see above")
                 print(Fore.GREEN + "Correct indexing for customer defined size classes ... checking standard classes..." + Fore.WHITE)
 
-### major update below ~ere
+    ### major update below ~ere
                 search_pattern_1 = '\nx\nQ3\nq3'    ### start ### improved string trimming based on pattern ~ere
                 search_pattern_2 = 'diameter'   ### end ###
                 if search_pattern_1 and search_pattern_2 in contents2:
@@ -122,7 +122,7 @@ else:
 
                 split_text = split_long_strings(cleaned_text)   ### reassign contents2 to the final version of the list of strings
                 #contents2 = ' '.join(split_text)### REMOVE make it back into one giant string with spaces so the next loop works, probably change this eventually to index a vector rather than a mega string?
-### major update above ~ere
+    ### major update above ~ere
 
                 standard_class_distrib = []
                 #print(sample_name) ## keep in some verbose for regular script
@@ -145,13 +145,16 @@ else:
                 # print(standard_class_distrib)
 
 
-        # Same exact thing as above, still catches misalignment errors but has no verbose output
+
+
+
+        # Same exact thing as above, still catches misalignment errors but has no verbose output   ### Commenting this out b/c unneeded ~ere
         contents1 = pdf.read_content(i)
-        contents2 = pdf.read_content(i+1)        
+        contents2 = pdf.read_content(i+1)
         if " " in sample_name or " " in mean or " " in median:
             raise Exception("Misalignment in indexing size metrics. Check that pdf version ==  or that the sample name does not contain spaces. Or, if you're sure this error is a mistake, delete lines 77-79 in CilasPal.py")
         else:
-            contents1 = contents1[620:]    
+            contents1 = contents1[620:]
             defined_class_distrib = []
             for classs in defined_classes_headers:
                 s = contents1.index(classs)
