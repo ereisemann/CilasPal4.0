@@ -38,9 +38,11 @@ class PdfReaderObject:
         return num_pages
     
     def init_excel(self):
-        spreadsheet_path = str(self.path_object.parent) + '/Your_Data.xlsx'
+        spreadsheet_path = str(self.path_object.parent) + '/Your_Data.xlsx'    ###
         self.spreadsheet_path_ref = spreadsheet_path
-        if (not os.path.exists(spreadsheet_path)):
+        if os.path.exists(spreadsheet_path):
+            raise FileExistsError(f"the file '{spreadsheet_path}' already exists. Rename or delete and re-run CilasPal.")   ### throw file exists error to clarify for users
+        elif (not os.path.exists(spreadsheet_path)):
             workbook = xlsxwriter.Workbook(spreadsheet_path)
             standard_classes = workbook.add_worksheet("Standard_Classes")
             defined_classes = workbook.add_worksheet("Customer_Defined_Classes")
