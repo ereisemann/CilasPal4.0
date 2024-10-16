@@ -1,5 +1,6 @@
-#import sys
-#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')   ## If script can't find PdfReaderObj map your directory here
+import sys
+#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')   ## If script can't find PdfReaderObj while workingin code, map your directory here
+sys.path.append(r'C:\Users\eveve\Documents\Git\CilasPal4.0\CilasPal')   ## If script can't find PdfReaderObj map your directory here
 import PdfReaderObj as p
 import pypdf
 import xlsxwriter
@@ -45,7 +46,7 @@ if debug == "Y" or debug == "y":
     print(Fore.YELLOW + "...running test file...")
     debug(file, defined_classes_headers, standard_classes_headers)
 else:
-    print("Welcome, please paste the path to the data file (.pdf only!)")
+    print("Welcome, please paste the path to the data file without quotes (.pdf only!)")   ### it does not seem to accept a file path with quotes ~ere
     file = input("Full file path is: ")
 
     pdf = p.PdfReaderObject(file)      ## PDF defined here based on PDF reader object (see PdfReaderObj.py)
