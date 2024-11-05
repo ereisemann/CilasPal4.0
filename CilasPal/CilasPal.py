@@ -10,6 +10,7 @@ import math
 import os
 import re   ### ~ere
 from colorama import Fore
+import warnings
 
 # Global vars
 defined_classes_headers = ['0.04', '3.90', '62.00', '88.00', '125.0', '177.0', '250.0', '350.0', '500.0', '710.0', '1000.0',
@@ -63,7 +64,8 @@ else:
             print(f"name:{sample_name}mean: {mean}\nmedian: {median}")
 
             if " " in sample_name or " " in mean or " " in median: # If there are spaces before/after
-                raise Exception("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces.")   ### Now that indexing is based on a cleaned version of all the values, not sure spaces in sample names are a problem
+                #raise Exception("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces.")   ### Now that indexing is based on a cleaned version of all the values, not sure spaces in sample names are a problem
+                warnings.warn("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces.")   ### Now that indexing is based on a cleaned version of all the values, not sure spaces in sample names are a problem
             else:
                 print(Fore.GREEN + "Correct indexing size metrics ... checking size classes..." + Fore.WHITE)
 
@@ -79,6 +81,7 @@ else:
                         print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents1[s+6:s+11]} to float" + Fore.WHITE)
                         raise Exception("Misalignment in indexing size classes. Can not cast to float. see above")
                 print(Fore.GREEN + "Correct indexing for customer defined size classes ... checking standard classes..." + Fore.WHITE)
+
 
     ### major update below ~ere
                 search_pattern_1 = '\nx\nQ3\nq3'    ### start ### improved string trimming based on pattern ~ere
@@ -129,7 +132,8 @@ else:
         contents1 = pdf.read_content(i)
         contents2 = pdf.read_content(i+1)
         if " " in sample_name or " " in mean or " " in median:
-            raise Exception("Misalignment in indexing size metrics. Check that pdf version ==  or that the sample name does not contain spaces. Or, if you're sure this error is a mistake, delete lines 77-79 in CilasPal.py")
+            # raise Exception("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces.")   ### Now that indexing is based on a cleaned version of all the values, not sure spaces in sample names are a problem
+            warnings.warn("Misalignment in indexing size metrics. Check that pdf version == or that the sample name does not contain spaces.")  ### Now that indexing is based on a cleaned version of all the values, not sure spaces in sample names are a problem
         else:
             contents1 = contents1[620:]
             defined_class_distrib = []
