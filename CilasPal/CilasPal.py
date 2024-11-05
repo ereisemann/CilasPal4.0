@@ -45,8 +45,12 @@ else:
 
     pdf = p.PdfReaderObject(file)      ## PDF defined here based on PDF reader object (see PdfReaderObj.py)
 
-    spreadsheet_path = pdf.init_excel()
-    print(spreadsheet_path)
+    # Overwrite prompt
+    overwrite_input = input("Overwrite existing Excel file if present? (Y/N): ")
+    overwrite = overwrite_input.lower() == "y"
+
+    spreadsheet_path = pdf.init_excel(overwrite=overwrite)
+    print(f"Spreadsheet created at: {spreadsheet_path}")
 
     row = 2
     # Now parse info from pdf. I'll keep this as straight forward as possible
