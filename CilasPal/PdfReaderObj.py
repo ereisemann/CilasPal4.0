@@ -71,7 +71,7 @@ class PdfReaderObject:
              
             i=1
             for standard_header in standard_classes_headers:
-                standard_classes_page.cell(row=1, column=i, value=standard_header)
+                standard_classes_page.cell(row=1, column=i, value=standard_header)   ### Eve changed 1 to 2
                 i+=1
                 
             workbook.save(spreadsheet_path)
