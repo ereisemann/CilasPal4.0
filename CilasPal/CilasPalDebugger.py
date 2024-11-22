@@ -1,5 +1,5 @@
-#import sys
-#sys.path.append('/Users/eveeisemann/Documents/GitHub/CilasPal4.0/CilasPal')
+import sys
+sys.path.append(r'C:\Users\eveve\Documents\Git\CilasPal4.0\CilasPal')
 import PdfReaderObj as p
 import CilasPalSetup as setup
 import CilasPalDebugger as debug
@@ -22,8 +22,8 @@ def debug(file, defined_classes_headers, standard_classes_headers):
     row = 2
     # Now parse info from pdf. I'll keep this as straight forward as possible
     for i in range(0, pdf.num_pages, 2):
-        contents1 = pdf.read_content(i)
-        contents2 = pdf.read_content(i+1)
+        contents1 = pdf.read_content(i)     ### contents1 pulls from the first page of each sample (custom size class headers)
+        contents2 = pdf.read_content(i+1)   ### Contents2 pulls from the second page of each sample (standard size class headers)
         sample_name = contents1[contents1.index("Sample ref.") + 14:contents1.index("Sample Name")]
         median = contents1[contents1.index('Diameter at 50%') + 18:contents1.index('µmDiameter at 90%')-1]
         mean = contents1[contents1.index('Mean diameter') + 16:contents1.index('FraunhoferDensity')-4]
@@ -94,23 +94,27 @@ def debug(file, defined_classes_headers, standard_classes_headers):
 
                 print(sample_name)
 
-                for classs in standard_classes_headers:
+                #for classs in standard_classes_headers:
+                for j in range(1,  len(standard_classes_headers)):   ### sometimes class header shows up in the data before appropriate location, causing problems with this indexing method
+                    #classs = standard_classes_headers[j-1]   ### unsure if this is needed
                     #s = contents2.index(classs)
-                    s = split_text.index(classs)   ### indexing from the string list instead, now s, s+1, s+2 are the three vals.
-                    ###
+                    #s = split_text.index(classs) ### indexing from the string list instead, now s, s+1, s+2 are the three vals.
+                    #s = split_text[j*3-3]   ### Size Class Header
+
                     #print(str(classs) + " = SIZE CLASS " + str(s) + " = STR INDEX")   ###
                     #print(split_text[s:s+3])
-                    print(split_text[s] + ' = CLASS ' + split_text[s+1] + " = CUMULATIVE " + split_text[s+2] + " = NONCUMULATIVE ")
+                    print(split_text[j*3-3] + ' = CLASS ' + split_text[j*3-2] + " = CUMULATIVE " + split_text[j*3-1] + " = NONCUMULATIVE ")
                     ###
 
                     try:
                         #val = float(contents2[s+12:s+17])   ### ~ere
-                        val = float(split_text[s+2])  ### from cleaned up list of strings
+                        #val = float(split_text[s+2])  ### from cleaned up list of strings
+                        val = float(split_text[j*3-1])
                         standard_class_distrib.append(val)
                     except:
-                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {contents2[s+12:s+17]} to float ...continuing with bad solution...")  ### ~ere
+                        print(Fore.RED + f"Misalignment in indexing size classes. Can not cast {split_text[j*3-1]} to float ...continuing with bad solution...")  ### ~ere
                         #standard_class_distrib.append(contents2[s+12:s+17]) ### ~ere
-                        standard_class_distrib.append(split_text[s+2])  ### ~ere
+                        standard_class_distrib.append(split_text[j*3-1])  ### ~ere
                 print(Fore.YELLOW + f"Standard defined output: {standard_class_distrib}")
 
                 workbook = openpyxl.load_workbook(spreadsheet_path)
